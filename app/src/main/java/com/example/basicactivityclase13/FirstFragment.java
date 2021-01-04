@@ -36,7 +36,7 @@ public class FirstFragment extends Fragment {
         WordsAdapter mAdapter = new WordsAdapter(wordList());
         // le pasamos el adapter a nuestro Recycler View
         mBinding.rv.setAdapter(mAdapter);
-        // Le indicamos al Recycler View
+        // Le indicamos al Recycler View como mostrar los elementos
         mBinding.rv.setLayoutManager(new LinearLayoutManager(getContext()));
 
         }
