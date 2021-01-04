@@ -19,7 +19,7 @@ import java.util.List;
 public class FirstFragment extends Fragment {
 
     private FragmentFirstBinding mBinding;
-
+    private  List<String> listado = new ArrayList<>();
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
@@ -39,13 +39,26 @@ public class FirstFragment extends Fragment {
         // Le indicamos al Recycler View como mostrar los elementos
         mBinding.rv.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        mBinding.fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // añadir palabra a listado
+                listado.add("Palabra  " + listado.size());
+                // notiificamos al adapter que la data cambió
+                mBinding.rv.getAdapter().notifyItemInserted(listado.size());
+                // Scroll al final
+                mBinding.rv.smoothScrollToPosition(listado.size());
+            }
+        });
         }
 
 
+
+
     private List<String> wordList(){
-        List<String> listado = new ArrayList<>();
-        for (int i = 0; i < 50; i++) {
-            listado.add("Palabra" + i);
+
+        for (int i = 0; i < 100; i++) {
+            listado.add("Palabra " + i);
         }
         return listado;
     }
