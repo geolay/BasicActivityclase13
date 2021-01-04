@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,9 +19,13 @@ public class WordsAdapter extends RecyclerView.Adapter<WordsAdapter.WordViewHold
 
     //1.- Añadimos listado de String que contendrá los datos
     private List<String> mWordList;
+    // referencia a interface
+    private PasarElemento pasarElemento;
+
     // 8.- Creamos un constructor para pasar el listado de datos al instanciar
-    public WordsAdapter(List<String> mWordList) {
+    public WordsAdapter(List<String> mWordList, PasarElemento pasarElemento) {
         this.mWordList = mWordList;
+        this.pasarElemento = pasarElemento;
     }
 
     @NonNull
@@ -48,12 +53,27 @@ public class WordsAdapter extends RecyclerView.Adapter<WordsAdapter.WordViewHold
 
 
     // 2.- Crear una clase interna, xxx ViewHolder. la puedo crear afuera y hacer referencia a ella
-    public class WordViewHolder extends RecyclerView.ViewHolder {
+    public class WordViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView textView;
-
         public WordViewHolder(@NonNull WordItemListBinding mBinding) {
             super(mBinding.getRoot());
             textView = mBinding.textView;
+            itemView.setOnClickListener(this);
         }
+
+        @Override
+        public void onClick(View v) {
+            int position = getLayoutPosition();
+            String element = mWordList.get(position);
+          //  Toast.makeText(v.getContext(),element, Toast.LENGTH_SHORT).show();
+            mWordList.set(position,element + " CLICK");
+            notifyDataSetChanged();
+
+            pasarElemento.passElement(element);
+        }
+    }
+    // Interface con metodo recibe palabra y pasa al primer fragmento
+    public interface PasarElemento{
+        void passElement(String elemento);
     }
 }

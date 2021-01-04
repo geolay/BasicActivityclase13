@@ -5,9 +5,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -16,7 +18,7 @@ import com.example.basicactivityclase13.databinding.FragmentFirstBinding;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FirstFragment extends Fragment {
+public class FirstFragment extends Fragment implements WordsAdapter.PasarElemento {
 
     private FragmentFirstBinding mBinding;
     private  List<String> listado = new ArrayList<>();
@@ -33,7 +35,7 @@ public class FirstFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         // Instanciamos el Adapter y le pasamos el listado de datos
-        WordsAdapter mAdapter = new WordsAdapter(wordList());
+        WordsAdapter mAdapter = new WordsAdapter(wordList(), this);
         // le pasamos el adapter a nuestro Recycler View
         mBinding.rv.setAdapter(mAdapter);
         // Le indicamos al Recycler View como mostrar los elementos
@@ -62,4 +64,11 @@ public class FirstFragment extends Fragment {
         return listado;
     }
 
+    @Override
+    public void passElement(String elemento) {
+      //  Toast.makeText(getContext(), elemento)
+        Log.d("PRIMER FRAGMENTO", elemento);
+        Navigation.findNavController(mBinding.getRoot())
+                .navigate(R.id.action_FirstFragment_to_SecondFragment);
+    }
 }
