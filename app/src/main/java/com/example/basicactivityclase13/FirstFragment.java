@@ -56,7 +56,6 @@ public class FirstFragment extends Fragment {
 
 
     private List<String> wordList(){
-
         for (int i = 0; i < 100; i++) {
             listado.add("Palabra " + i);
         }
