@@ -6,10 +6,25 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
+import com.example.basicactivityclase13.databinding.FragmentSecondBinding;
+
 public class SecondFragment extends Fragment {
+
+
+    private FragmentSecondBinding mBinding;
+    private String element;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null){
+            element=getArguments().getString("llave1");
+        }
+    }
 
     @Override
     public View onCreateView(
@@ -17,11 +32,14 @@ public class SecondFragment extends Fragment {
             Bundle savedInstanceState
     ) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_second, container, false);
+        mBinding = FragmentSecondBinding.inflate(inflater,container,false);
+        return mBinding.getRoot();
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        mBinding.textviewSecond.setText(element);
 
         view.findViewById(R.id.button_second).setOnClickListener(new View.OnClickListener() {
             @Override

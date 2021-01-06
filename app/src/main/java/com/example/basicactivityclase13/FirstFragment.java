@@ -68,7 +68,10 @@ public class FirstFragment extends Fragment implements WordsAdapter.PasarElement
     public void passElement(String elemento) {
        Toast.makeText(getContext(), elemento, Toast.LENGTH_SHORT).show();
         Log.d("PRIMER FRAGMENTO", elemento);
+        Bundle bundle = new Bundle();
+        bundle.putString("llave1",elemento);
         Navigation.findNavController(mBinding.getRoot())
-                .navigate(R.id.action_FirstFragment_to_SecondFragment);
+                .navigate(R.id.action_FirstFragment_to_SecondFragment, bundle);
+
     }
 }
